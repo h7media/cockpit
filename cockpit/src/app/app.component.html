@@ -1,17 +1,14 @@
-<mat-drawer-container class="example-container" fxFill>
-	<mat-drawer mode="side" opened style="min-width: 250px;" *ngIf="!verificaLogin()">
-		<mat-toolbar>Cockpit</mat-toolbar>
-        <mat-nav-list>
-            <a mat-list-item class="nav-link" [routerLink]="'/usuarios'"> Usuarios </a>
-            <a mat-list-item class="nav-link" [routerLink]="'/clientes'"> Clientes </a>
-            <a mat-list-item class="nav-link" [routerLink]="'/servicos'"> Serviços </a>
-            <a mat-list-item class="nav-link"> <fa-icon [icon]="faSignOutAlt"></fa-icon> Sair </a>
-        </mat-nav-list>
-	</mat-drawer>
-	<mat-drawer-content>
-		<mat-toolbar style="height: 20px;"></mat-toolbar>
-		<div style="background-color: #fafafa;" fxFill>
-			<router-outlet></router-outlet>
-		</div>
-	</mat-drawer-content>
-  </mat-drawer-container>
+<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+  <div id="leftnav" fxFlex="214.68px">
+    <app-sidenav></app-sidenav>
+  </div>
+  <div fxFlex="50%">
+    <div fxFill>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <div id="rightnav" fxFlex>
+    <app-rightnav></app-rightnav>
+  </div>
+</div>
