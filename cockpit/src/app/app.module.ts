@@ -13,6 +13,8 @@ import { RightnavComponent } from './shared/components/rightnav/rightnav.compone
 import { TopoComponent } from './components//dashboard/topo/topo.component';
 import { ProdutoComponent } from './components/dashboard/produto/produto.component';
 
+import { NgChartsModule } from 'ng2-charts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,8 @@ import { ProdutoComponent } from './components/dashboard/produto/produto.compone
     AppRoutingModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
