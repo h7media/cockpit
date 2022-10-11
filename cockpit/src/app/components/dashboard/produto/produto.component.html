@@ -1,1 +1,6 @@
-<p>produto works!</p>
+<div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start" class="dash-corpo">
+    <span class="titulo">Unidade de negócio 1</span>
+    <span class="subtitulo">Unidade de negócio</span>
+    <canvas baseChart width="390" height="200" [data]="lineChartData" [options]="lineChartOptions"
+        [type]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+</div>

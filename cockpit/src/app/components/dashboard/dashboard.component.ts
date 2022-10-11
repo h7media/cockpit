@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 // import {default as Annotation} from 'chartjs-plugin-annotation';
+import { lineChartData, lineChartOptions, lineChartType } from 'src/app/shared/utils/fake-data-chart';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,70 +18,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public lineChartData: ChartConfiguration['data'] = {
-    datasets: [
-      {
-        data: [ 9500, 8500, 6500, 12000 ],
-        backgroundColor: '#fff',
-        borderColor: '#7549FF',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      }
-    ],
-    labels: [ 'Alcance', 'Engajamento', 'Conversão', 'Retenção' ]
-  };
+  public lineChartData = lineChartData;
 
-  public lineChartOptions: ChartConfiguration['options'] = {
-    elements: {
-      line: {
-        tension: 0.5
-      }
-    },
-    scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
-      x: {},
-      'y-axis-0':
-        {
-          position: 'left',
-        },
-      'y-axis-1': {
-        position: 'right',
-        grid: {
-          color: '#ccc',
-        },
-        ticks: {
-          color: '#ccc'
-        }
-      }
-    },
-    plugins: {
-      legend: { display: false },
-      // annotation: {
-      //   annotations: [
-      //     {
-      //       type: 'line',
-      //       scaleID: 'x',
-      //       value: 'March',
-      //       borderColor: 'orange',
-      //       borderWidth: 2,
-      //       label: {
-      //         display: true,
-      //         position: 'center',
-      //         color: 'orange',
-      //         content: 'LineAnno',
-      //         font: {
-      //           weight: 'bold'
-      //         }
-      //       }
-      //     },
-      //   ],
-      // }
-    }
-  };
+  public lineChartOptions = lineChartOptions;
 
-  public lineChartType: ChartType = 'line';
+  public lineChartType = lineChartType;
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
