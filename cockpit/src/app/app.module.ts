@@ -9,20 +9,22 @@ import { AppMaterialModule } from './shared/modules/material.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SidenavComponent } from './shared/components/sidenav/sidenav.component';
-import { RightnavComponent } from './shared/components/rightnav/rightnav.component';
 import { TopoComponent } from './components//dashboard/topo/topo.component';
 import { ProdutoComponent } from './components/dashboard/produto/produto.component';
 
 import { NgChartsModule } from 'ng2-charts';
+import { OpcoesComponent } from './components/dashboard/topo/opcoes/opcoes.component';
+import { DetalhesComponent } from './components/dashboard/topo/detalhes/detalhes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     SidenavComponent,
-    RightnavComponent,
     TopoComponent,
-    ProdutoComponent
+    ProdutoComponent,
+    OpcoesComponent,
+    DetalhesComponent
   ],
   imports: [
     BrowserModule,

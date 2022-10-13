@@ -18,7 +18,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
-import { FlexLayoutModule } from '@angular/flex-layout'; 
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
 	imports: [
@@ -40,7 +42,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 		MatSlideToggleModule,
 		MatDialogModule,
 		MatMenuModule,
-		FlexLayoutModule
+		FlexLayoutModule,
+		MatDatepickerModule,
+		MatNativeDateModule
 	],
 	exports: [
 		MatInputModule,
@@ -60,7 +64,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 		MatSlideToggleModule,
 		MatDialogModule,
 		MatMenuModule,
-		FlexLayoutModule
+		FlexLayoutModule,
+		MatDatepickerModule,
+		MatNativeDateModule
 	]
 })
 export class AppMaterialModule { }

@@ -1,0 +1,22 @@
+<div fxLayout="column" fxLayoutAlign="stretch">
+    <mat-form-field appearance="fill">
+        <mat-label>Selecione o cliente</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let food of foods" [value]="food.value">
+                {{food.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Escolha uma data inicial</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="fill">
+        <mat-label>Escolha uma data final</mat-label>
+        <input matInput [matDatepicker]="picker1">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field> -->
+</div>
