@@ -15,6 +15,8 @@ import { ProdutoComponent } from './components/dashboard/produto/produto.compone
 import { NgChartsModule } from 'ng2-charts';
 import { OpcoesComponent } from './components/dashboard/topo/opcoes/opcoes.component';
 import { DetalhesComponent } from './components/dashboard/topo/detalhes/detalhes.component';
+import { AuthService } from './services/auth.service';
+
 
 @NgModule({
   declarations: [
@@ -32,9 +34,11 @@ import { DetalhesComponent } from './components/dashboard/topo/detalhes/detalhes
     BrowserAnimationsModule,
     AppMaterialModule,
     FontAwesomeModule,
-    NgChartsModule
+    NgChartsModule,
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

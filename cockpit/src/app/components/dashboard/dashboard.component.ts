@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
+import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { BaseChartDirective } from 'ng2-charts';
+import { AuthService } from 'src/app/services/auth.service';
 // import {default as Annotation} from 'chartjs-plugin-annotation';
 import { lineChartData, lineChartOptions, lineChartType } from 'src/app/shared/utils/fake-data-chart';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -11,11 +15,40 @@ import { lineChartData, lineChartOptions, lineChartType } from 'src/app/shared/u
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() {
+  constructor(private _auth: AuthService, private _ngZone: NgZone, private router: Router) {
     // Chart.register(Annotation)
   }
 
   ngOnInit(): void {
+    //@ts-ignore
+    window.onGoogleLibraryLoad = () => {
+      //@ts-ignore
+      google.accounts.id.initialize({
+        client_id: "343166035868-desd6rpir3t7hnk5q6svpb8tasucm809.apps.googleusercontent.com",
+        callback: this.handleCredentialResponse.bind(this)
+      });
+      //@ts-ignore
+      google.accounts.id.renderButton(
+        // @ts-ignore
+        document.getElementById("buttonDiv"),
+        { theme: "outline", size: "large" }  // customization attributes
+      );
+      //@ts-ignore
+      google.accounts.id.prompt((notification: PromptMomentNotification) => { }); // also display the One Tap dialog
+    }
+  }
+
+  handleCredentialResponse(response: CredentialResponse) {
+    console.log('entrou')
+    this._auth.LoginWithGoogle(response.credential);
+    this._ngZone.run(() => {
+      this.router.navigate(['/dash']);
+    })
+  }
+
+
+  signInWithGoogle(): void {
+
   }
 
   public lineChartData = lineChartData;
@@ -58,7 +91,7 @@ export class DashboardComponent implements OnInit {
       const num = DashboardComponent.generateNumber(i);
       x.data.push(num);
     });
-    this.lineChartData?.labels?.push(`Label ${ this.lineChartData.labels.length }`);
+    this.lineChartData?.labels?.push(`Label ${this.lineChartData.labels.length}`);
 
     this.chart?.update();
   }
@@ -72,7 +105,7 @@ export class DashboardComponent implements OnInit {
 
   public changeLabel(): void {
     if (this.lineChartData.labels) {
-      this.lineChartData.labels[2] = [ '1st Line', '2nd Line' ];
+      this.lineChartData.labels[2] = ['1st Line', '2nd Line'];
     }
 
     this.chart?.update();

@@ -10,9 +10,6 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 export class AppComponent {
   title = 'cockpit';
 
-  loading = false;
-  faSignOutAlt = faSignOutAlt;
-
   constructor(
     private location: Router,
   ) { }
