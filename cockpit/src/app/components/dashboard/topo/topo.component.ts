@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Dashboard } from 'src/app/shared/models/dashboard';
 
 @Component({
   selector: 'app-topo',
@@ -9,6 +10,12 @@ export class TopoComponent implements OnInit {
 
   @Output() periodoSelecionado = new EventEmitter<string>();
   @Output() clienteSelecionado = new EventEmitter<number>();
+  @Input() dash: Dashboard = {
+    clientesMes: 8797,
+    clientesTotais: 3456,
+    totalInvestido: 84732.99,
+    totalVendido: 3482937.48
+  }
   constructor() { }
 
 

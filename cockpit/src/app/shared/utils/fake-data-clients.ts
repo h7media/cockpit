@@ -25,15 +25,17 @@ const geradorClientes = (nomeClientes: string[]): Clientes[] => {
 const geradorUnidadeNegocioCliente = (nomeUnidades: string[]): UnidadeNegocio[] => {
     
     let un: UnidadeNegocio[] = []
+
     
     for (let index = 0; index < nomeUnidades.length; index++) {
+        let inicio = Math.floor(Math.random() * 9999)
         un.push({
             id: index + 1,
             descricao: nomeUnidades[index],
-            alcance: Math.floor(Math.random() * 9999),
-            conversao: Math.floor(Math.random() * 9999),
-            engajamento: Math.floor(Math.random() * 9999),
-            retencao: Math.floor(Math.random() * 9999),
+            alcance: inicio,
+            conversao: inicio * 0.6,
+            engajamento: inicio * 0.8,
+            retencao: inicio * 0.5,
             cor: cores[index]
         })
     }
@@ -42,7 +44,7 @@ const geradorUnidadeNegocioCliente = (nomeUnidades: string[]): UnidadeNegocio[] 
 }
 
 const geradorUNGreenRun = (): UnidadeNegocio[] => {
-    return geradorUnidadeNegocioCliente(['Aposta Futebol', 'Aposta Volêi', 'Aposta tenis'])
+    return geradorUnidadeNegocioCliente(['Big Tasty', 'Big MC', 'McChicken', 'Cheeseburguer'])
 }
 const geradorUNVetFaro = (): UnidadeNegocio[] => {
     return geradorUnidadeNegocioCliente(['Ração de cachorro', 'Ração para gatos'])

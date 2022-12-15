@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
     <div fxFlex="80%">
-        <app-detalhes></app-detalhes>
+        <app-detalhes [dash]="dash"></app-detalhes>
     </div>
     <div fxFlex="20%">
         <app-opcoes (periodo)="informaPeriodo($event)" (cliente)="informaCliente($event)"></app-opcoes>

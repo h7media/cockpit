@@ -18,7 +18,7 @@ export class OpcoesComponent implements OnInit {
 
   faUser = faUser
 
-  lstClientes: Clientes[] = geradorClientes(['Green Run', 'Vetfaro', 'Gibim'])
+  lstClientes: Clientes[] = geradorClientes(['SEO', 'FACEBOOK', 'INSTAGRAM', 'SEM'])
 
   periodos: Opcoes[] = periodos;
 

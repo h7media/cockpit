@@ -1,6 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="stretch">
     <mat-form-field appearance="fill">
-        <mat-label>Selecione o cliente</mat-label>
+        <mat-label>Selecione o canal</mat-label>
         <mat-select (selectionChange)="selecionaCliente($event.value)">
             <mat-option *ngFor="let cliente of lstClientes" [value]="cliente.id">
                 {{cliente.nome}}

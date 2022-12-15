@@ -4,6 +4,7 @@ import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { BaseChartDirective } from 'ng2-charts';
 import { AuthService } from 'src/app/services/auth.service';
+import { Dashboard } from 'src/app/shared/models/dashboard';
 import UnidadeNegocio from 'src/app/shared/models/unidade-negocio';
 // import {default as Annotation} from 'chartjs-plugin-annotation';
 import { lineChartData, lineChartOptions, lineChartType } from 'src/app/shared/utils/fake-data-chart';
@@ -21,7 +22,13 @@ export class DashboardComponent implements OnInit, OnChanges {
   unidadeNegocio: UnidadeNegocio[] = []
   periodoSelecionado: string = ''
   clienteSelecionado: number = 0
-  dados:any
+  dados: any
+  dash: Dashboard = {
+    clientesMes: 8797,
+    clientesTotais: 3456,
+    totalInvestido: 84732.99,
+    totalVendido: 3482937.48
+  }
 
 
   constructor(private _auth: AuthService, private _ngZone: NgZone, private router: Router) {
@@ -71,17 +78,42 @@ export class DashboardComponent implements OnInit, OnChanges {
   }
 
   geraDadosCliente(cliente: number) {
-    switch (cliente) {
-      case 1:
-        this.unidadeNegocio = geradorUNGreenRun()
-        break;
-      case 2:
-        this.unidadeNegocio = geradorUNVetFaro()
-        break;
-      case 3:
-        this.unidadeNegocio = geradorUNGibim()
-        break;
-    }
+    this.unidadeNegocio = geradorUNGreenRun()
+    // this.dash = {
+    //   clientesMes: 8797 * 0.8,
+    //   clientesTotais: 3456 * 0.8,
+    //   totalInvestido: 84732.99 * 0.8,
+    //   totalVendido: 3482937.48 * 0.8
+    // }
+    // switch (cliente) {
+    //   case 1:
+    //     this.unidadeNegocio = geradorUNGreenRun()
+    //     this.dash = {
+    //       clientesMes: 8797 * 0.8,
+    //       clientesTotais: 3456 * 0.8,
+    //       totalInvestido: 84732.99 * 0.8,
+    //       totalVendido: 3482937.48 * 0.8
+    //     }
+    //     break;
+    //   case 2:
+    //     this.unidadeNegocio = geradorUNVetFaro()
+    //     this.dash = {
+    //       clientesMes: 8797 * 0.3,
+    //       clientesTotais: 3456 * 0.4,
+    //       totalInvestido: 84732.99 * 0.2,
+    //       totalVendido: 3482937.48 * 0.3
+    //     }
+    //     break;
+    //   case 3:
+    //     this.unidadeNegocio = geradorUNGibim()
+    //     this.dash = {
+    //       clientesMes: 8797 * 0.9,
+    //       clientesTotais: 3456 * 0.7,
+    //       totalInvestido: 84732.99 * 0.5,
+    //       totalVendido: 3482937.48 * 0.4
+    //     }
+    //     break;
+    // }
   }
 
   // handleCredentialResponse(response: CredentialResponse) {

@@ -1,6 +1,6 @@
-<app-topo (periodoSelecionado)="atribuiPeriodo($event)" (clienteSelecionado)="atribuiCliente($event)"></app-topo>
+<app-topo (periodoSelecionado)="atribuiPeriodo($event)" (clienteSelecionado)="atribuiCliente($event)" [dash]="dash"></app-topo>
 <div class="dash-corpo">
-    <span class="titulo">Somatória geral</span>
+    <span class="titulo">Somatória geral - Arcos Dourados</span>
     <canvas baseChart height="110" [data]="dados" [options]="lineChartOptions" [type]="lineChartType"
         (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 </div>
