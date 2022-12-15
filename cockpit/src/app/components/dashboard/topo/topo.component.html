@@ -3,6 +3,6 @@
         <app-detalhes></app-detalhes>
     </div>
     <div fxFlex="20%">
-        <app-opcoes></app-opcoes>
+        <app-opcoes (periodo)="informaPeriodo($event)" (cliente)="informaCliente($event)"></app-opcoes>
     </div>
 </div>

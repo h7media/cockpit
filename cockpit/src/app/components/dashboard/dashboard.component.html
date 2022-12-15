@@ -1,11 +1,14 @@
-<app-topo></app-topo>
+<app-topo (periodoSelecionado)="atribuiPeriodo($event)" (clienteSelecionado)="atribuiCliente($event)"></app-topo>
 <div class="dash-corpo">
-    <canvas baseChart height="110" [data]="lineChartData" [options]="lineChartOptions"
-        [type]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+    <span class="titulo">Somatória geral</span>
+    <canvas baseChart height="110" [data]="dados" [options]="lineChartOptions" [type]="lineChartType"
+        (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 </div>
-<div fxLayout="row" fxLayoutGap="10px" style="margin-bottom:60px">
-    <app-produto fxFlex="50%"></app-produto>
-    <app-produto fxFlex="50%"></app-produto>
+<div fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="start center" style="margin-bottom: 60px;">
+    <div *ngFor="let un of unidadeNegocio; index as i;" fxFlex="48%">
+        <app-produto [alcance]="un.alcance" [conversao]="un.conversao" [engajamento]="un.engajamento"
+            [retencao]="un.retencao" [titulo]="un.descricao" [cor]="un.cor || 'blue'"></app-produto>
+    </div>
 </div>
 <!-- <p class="g-signin2" data-onsuccess="queryReports"></p> -->
 <!-- <button (click)="getReport()">Consulta Analytics</button> -->

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import Clientes from 'src/app/shared/models/clientes';
+import { geradorClientes, periodos } from 'src/app/shared/utils/fake-data-clients';
 
 interface Opcoes {
   value: string;
@@ -16,20 +18,23 @@ export class OpcoesComponent implements OnInit {
 
   faUser = faUser
 
-  clientes: Opcoes[] = [
-    {value: 'green-run', viewValue: 'Green Run'},
-    {value: 'vetfaro', viewValue: 'Vetfaro'},
-    {value: 'gibim', viewValue: 'Gibim'},
-  ];
-  periodos: Opcoes[] = [
-    {value: '7days', viewValue: 'Últimos 7 dias'},
-    {value: '15days', viewValue: 'Últimos 15 dias'},
-    {value: '30days', viewValue: 'Últimos 30 dias'},
-  ];
+  lstClientes: Clientes[] = geradorClientes(['Green Run', 'Vetfaro', 'Gibim'])
 
+  periodos: Opcoes[] = periodos;
+
+  @Output() periodo = new EventEmitter<string>();
+  @Output() cliente = new EventEmitter<number>();
+  
   constructor() { }
-
+  
   ngOnInit(): void {
+  }
+  
+  selecionaPeriodo(value: string) {
+    this.periodo.emit(value);
+  }
+  selecionaCliente(value: number) {
+    this.cliente.emit(value);
   }
 
 }

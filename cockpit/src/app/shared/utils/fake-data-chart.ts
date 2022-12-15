@@ -1,13 +1,13 @@
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 
 
-export const lineChartData = (entryValues: number[]): ChartConfiguration['data'] => {
+export const lineChartData = (entryValues: number[], cor: string = '#7549FF'): ChartConfiguration['data'] => {
     return {
         datasets: [
             {
                 data: entryValues,
                 backgroundColor: '#fff',
-                borderColor: '#7549FF',
+                borderColor: cor,
                 pointBackgroundColor: 'rgba(148,159,177,1)',
                 pointBorderColor: '#fff',
                 pointHoverBackgroundColor: '#fff',

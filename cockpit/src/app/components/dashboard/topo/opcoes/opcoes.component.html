@@ -1,15 +1,15 @@
 <div fxLayout="column" fxLayoutAlign="stretch">
     <mat-form-field appearance="fill">
         <mat-label>Selecione o cliente</mat-label>
-        <mat-select>
-            <mat-option *ngFor="let cliente of clientes" [value]="cliente.value">
-                {{cliente.viewValue}}
+        <mat-select (selectionChange)="selecionaCliente($event.value)">
+            <mat-option *ngFor="let cliente of lstClientes" [value]="cliente.id">
+                {{cliente.nome}}
             </mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Escolha um periodo</mat-label>
-        <mat-select>
+        <mat-select (selectionChange)="selecionaPeriodo($event.value)">
             <mat-option *ngFor="let periodo of periodos" [value]="periodo.value">
                 {{periodo.viewValue}}
             </mat-option>

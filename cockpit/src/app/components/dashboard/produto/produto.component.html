@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="start" class="dash-corpo">
-    <span class="titulo">Unidade de Negócio 1</span>
+    <span class="titulo">{{titulo}}</span>
     <span class="subtitulo">Unidade de Negócio</span>
     <canvas baseChart height="300" [data]="lineChartData" [options]="lineChartOptions"
         [type]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>

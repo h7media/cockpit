@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-topo',
@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopoComponent implements OnInit {
 
+  @Output() periodoSelecionado = new EventEmitter<string>();
+  @Output() clienteSelecionado = new EventEmitter<number>();
   constructor() { }
+
 
   ngOnInit(): void {
   }
+
+  informaPeriodo(value: any) {
+    this.periodoSelecionado.emit(value);
+  }
+  informaCliente(value: any) {
+    this.clienteSelecionado.emit(+value);
+  }
+
+
 
 }

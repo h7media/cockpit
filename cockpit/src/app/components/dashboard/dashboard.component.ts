@@ -1,11 +1,13 @@
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { BaseChartDirective } from 'ng2-charts';
 import { AuthService } from 'src/app/services/auth.service';
+import UnidadeNegocio from 'src/app/shared/models/unidade-negocio';
 // import {default as Annotation} from 'chartjs-plugin-annotation';
 import { lineChartData, lineChartOptions, lineChartType } from 'src/app/shared/utils/fake-data-chart';
+import { geradorUNGibim, geradorUNGreenRun, geradorUNVetFaro } from 'src/app/shared/utils/fake-data-clients';
 
 
 @Component({
@@ -13,12 +15,17 @@ import { lineChartData, lineChartOptions, lineChartType } from 'src/app/shared/u
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnChanges {
 
   authButton: boolean = false;
+  unidadeNegocio: UnidadeNegocio[] = []
+  periodoSelecionado: string = ''
+  clienteSelecionado: number = 0
+  dados:any
+
 
   constructor(private _auth: AuthService, private _ngZone: NgZone, private router: Router) {
-    
+
   }
 
   ngOnInit(): void {
@@ -40,6 +47,43 @@ export class DashboardComponent implements OnInit {
     // }
   }
 
+  ngOnChanges(): void {
+
+  }
+
+  atribuiPeriodo($event: any) {
+    this.periodoSelecionado = $event
+    this.geraDadosCliente(this.clienteSelecionado)
+    let somatoriaAlcance = this.unidadeNegocio.reduce((sum, current) => sum + current.alcance, 0);
+    let somatoriaEngajamento = this.unidadeNegocio.reduce((sum, current) => sum + current.engajamento, 0);
+    let somatoriaConversao = this.unidadeNegocio.reduce((sum, current) => sum + current.conversao, 0);
+    let somatoriaRetencao = this.unidadeNegocio.reduce((sum, current) => sum + current.retencao, 0);
+    this.dados = lineChartData([somatoriaAlcance, somatoriaEngajamento, somatoriaConversao, somatoriaRetencao])
+  }
+  atribuiCliente($event: any) {
+    this.clienteSelecionado = +$event
+    this.geraDadosCliente(this.clienteSelecionado)
+    let somatoriaAlcance = this.unidadeNegocio.reduce((sum, current) => sum + current.alcance, 0);
+    let somatoriaEngajamento = this.unidadeNegocio.reduce((sum, current) => sum + current.engajamento, 0);
+    let somatoriaConversao = this.unidadeNegocio.reduce((sum, current) => sum + current.conversao, 0);
+    let somatoriaRetencao = this.unidadeNegocio.reduce((sum, current) => sum + current.retencao, 0);
+    this.dados = lineChartData([somatoriaAlcance, somatoriaEngajamento, somatoriaConversao, somatoriaRetencao])
+  }
+
+  geraDadosCliente(cliente: number) {
+    switch (cliente) {
+      case 1:
+        this.unidadeNegocio = geradorUNGreenRun()
+        break;
+      case 2:
+        this.unidadeNegocio = geradorUNVetFaro()
+        break;
+      case 3:
+        this.unidadeNegocio = geradorUNGibim()
+        break;
+    }
+  }
+
   // handleCredentialResponse(response: CredentialResponse) {
   //   console.log('entrou')
   //   this._auth.LoginWithGoogle(response.credential);
@@ -49,7 +93,7 @@ export class DashboardComponent implements OnInit {
   // }
 
   // getReport() {
-    
+
   //   console.log('chamou')
   //   //@ts-ignore
   //   gapi.client.request({
@@ -65,8 +109,8 @@ export class DashboardComponent implements OnInit {
   //     console.log("🚀 ~ file: dashboard.component.ts:81 ~ DashboardComponent ~ displayResults ~ formattedJson", formattedJson)
   //   }, console.error.bind(console));
 
-    
-    
+
+
   // }
 
   // queryReports() {
@@ -131,11 +175,11 @@ export class DashboardComponent implements OnInit {
 
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
   public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
   public hideOne(): void {

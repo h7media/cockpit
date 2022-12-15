@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { ChartEvent } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import UnidadeNegocio from 'src/app/shared/models/unidade-negocio';
 import { lineChartData, lineChartOptions, lineChartType } from 'src/app/shared/utils/fake-data-chart';
 
 @Component({
@@ -8,20 +9,32 @@ import { lineChartData, lineChartOptions, lineChartType } from 'src/app/shared/u
   templateUrl: './produto.component.html',
   styleUrls: ['./produto.component.scss']
 })
-export class ProdutoComponent implements OnInit {
+export class ProdutoComponent implements OnInit, OnChanges {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  public lineChartData = lineChartData([200, 300, 400, 500]);
+  @Input() alcance: number = 0
+  @Input() engajamento: number = 0
+  @Input() conversao: number = 0
+  @Input() retencao: number = 0
+  @Input() titulo: string = ''
+  @Input() cor: string = ''
+  
+  public lineChartData = lineChartData([this.alcance, this.engajamento, this.conversao, this.retencao], this.cor);
 
   public lineChartOptions = lineChartOptions;
 
   public lineChartType = lineChartType;
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  ngOnChanges(): void {
+    this.lineChartData = lineChartData([this.alcance, this.engajamento, this.conversao, this.retencao], this.cor)
+  }
+
 
   private static generateNumber(i: number): number {
     return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
@@ -55,7 +68,7 @@ export class ProdutoComponent implements OnInit {
       const num = ProdutoComponent.generateNumber(i);
       x.data.push(num);
     });
-    this.lineChartData?.labels?.push(`Label ${ this.lineChartData.labels.length }`);
+    this.lineChartData?.labels?.push(`Label ${this.lineChartData.labels.length}`);
 
     this.chart?.update();
   }
@@ -69,7 +82,7 @@ export class ProdutoComponent implements OnInit {
 
   public changeLabel(): void {
     if (this.lineChartData.labels) {
-      this.lineChartData.labels[2] = [ '1st Line', '2nd Line' ];
+      this.lineChartData.labels[2] = ['1st Line', '2nd Line'];
     }
 
     this.chart?.update();
