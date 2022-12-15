@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
-interface Food {
+interface Opcoes {
   value: string;
   viewValue: string;
 }
@@ -16,10 +16,15 @@ export class OpcoesComponent implements OnInit {
 
   faUser = faUser
 
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
+  clientes: Opcoes[] = [
+    {value: 'green-run', viewValue: 'Green Run'},
+    {value: 'vetfaro', viewValue: 'Vetfaro'},
+    {value: 'gibim', viewValue: 'Gibim'},
+  ];
+  periodos: Opcoes[] = [
+    {value: '7days', viewValue: 'Últimos 7 dias'},
+    {value: '15days', viewValue: 'Últimos 15 dias'},
+    {value: '30days', viewValue: 'Últimos 30 dias'},
   ];
 
   constructor() { }

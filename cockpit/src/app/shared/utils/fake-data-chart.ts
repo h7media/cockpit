@@ -1,19 +1,21 @@
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 
 
-export const lineChartData: ChartConfiguration['data'] = {
-    datasets: [
-        {
-            data: [9500, 8500, 6500, 12000],
-            backgroundColor: '#fff',
-            borderColor: '#7549FF',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        }
-    ],
-    labels: ['Alcance', 'Engajamento', 'Conversão', 'Retenção']
+export const lineChartData = (entryValues: number[]): ChartConfiguration['data'] => {
+    return {
+        datasets: [
+            {
+                data: entryValues,
+                backgroundColor: '#fff',
+                borderColor: '#7549FF',
+                pointBackgroundColor: 'rgba(148,159,177,1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+            }
+        ],
+        labels: ['Alcance', 'Engajamento', 'Conversão', 'Retenção']
+    } as ChartConfiguration['data']
 };
 
 export const lineChartOptions: ChartConfiguration['options'] = {

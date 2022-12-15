@@ -15,7 +15,7 @@ export class ProdutoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public lineChartData = lineChartData;
+  public lineChartData = lineChartData([200, 300, 400, 500]);
 
   public lineChartOptions = lineChartOptions;
 

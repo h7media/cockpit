@@ -2,17 +2,25 @@
     <mat-form-field appearance="fill">
         <mat-label>Selecione o cliente</mat-label>
         <mat-select>
-            <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
+            <mat-option *ngFor="let cliente of clientes" [value]="cliente.value">
+                {{cliente.viewValue}}
             </mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
+        <mat-label>Escolha um periodo</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let periodo of periodos" [value]="periodo.value">
+                {{periodo.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="fill">
         <mat-label>Escolha uma data inicial</mat-label>
         <input matInput [matDatepicker]="picker">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    </mat-form-field> -->
     <!-- <mat-form-field appearance="fill">
         <mat-label>Escolha uma data final</mat-label>
         <input matInput [matDatepicker]="picker1">

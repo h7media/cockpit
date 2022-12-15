@@ -1,8 +1,6 @@
 export interface Dashboard {
-    clienteId: string
-    clienteNome: string
-    alcance: number,
-    engajamento: number,
-    conversao: number,
-    retencao: number
+    clientesMes: number
+    clientesTotais: number
+    totalInvestido: number
+    totalVendido: number
 }
