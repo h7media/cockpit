@@ -1,13 +1,23 @@
-<app-topo (periodoSelecionado)="atribuiPeriodo($event)" (clienteSelecionado)="atribuiCliente($event)" [dash]="dash"></app-topo>
-<div class="dash-corpo">
-    <span class="titulo">Somatória geral - Arcos Dourados</span>
-    <canvas baseChart height="110" [data]="dados" [options]="lineChartOptions" [type]="lineChartType"
-        (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-</div>
-<div fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="start center" style="margin-bottom: 60px;">
-    <div *ngFor="let un of unidadeNegocio; index as i;" fxFlex="48%">
-        <app-produto [alcance]="un.alcance" [conversao]="un.conversao" [engajamento]="un.engajamento"
-            [retencao]="un.retencao" [titulo]="un.descricao" [cor]="un.cor || 'blue'"></app-produto>
+<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center start" class="fundo" style="padding-top:45px">
+    <div fxFlex="15%" style="background-color: #D0D2DA40;">
+        <app-sidenav></app-sidenav>
+    </div>
+    <div fxFlex="80%">
+        <div fxFill>
+            <app-topo (periodoSelecionado)="atribuiPeriodo($event)" (clienteSelecionado)="atribuiCliente($event)"
+                [dash]="dash"></app-topo>
+            <div class="dash-corpo">
+                <span class="titulo">Somatória geral - Arcos Dourados</span>
+                <canvas baseChart height="110" [data]="dados" [options]="lineChartOptions" [type]="lineChartType"
+                    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            </div>
+            <div fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="start center" style="margin-bottom: 60px;">
+                <div *ngFor="let un of unidadeNegocio; index as i;" fxFlex="48%">
+                    <app-produto [alcance]="un.alcance" [conversao]="un.conversao" [engajamento]="un.engajamento"
+                        [retencao]="un.retencao" [titulo]="un.descricao" [cor]="un.cor || 'blue'"></app-produto>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- <p class="g-signin2" data-onsuccess="queryReports"></p> -->

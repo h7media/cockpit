@@ -36,6 +36,8 @@ export class DashboardComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+
+    this.obtemContas();
     // //@ts-ignore
     // window.onGoogleLibraryLoad = () => {
     //   //@ts-ignore
@@ -140,6 +142,30 @@ export class DashboardComponent implements OnInit, OnChanges {
   //     var formattedJson = JSON.stringify(response.result, null, 2);
   //     console.log("🚀 ~ file: dashboard.component.ts:81 ~ DashboardComponent ~ displayResults ~ formattedJson", formattedJson)
   //   }, console.error.bind(console));
+
+  obtemContas() {
+
+    function start() {
+      //@ts-ignore
+      gapi.client.init({
+        'apiKey': '74204654932-aad5irlv4mpdmg0251e1hnsrfrbes0tu.apps.googleusercontent.com'
+      }).then(function () {
+        //@ts-ignore
+        return gapi.client.request({
+          path: '/analytics/v3/management/accountSummaries',
+          root: 'https://www.googleapis.com/',
+          method: 'GET'
+          //@ts-ignore
+        }).then((response: any) => {
+          var formattedJson = JSON.stringify(response.result, null, 2);
+          console.log("🚀 ~ file: dashboard.component.ts:81 ~ DashboardComponent ~ displayResults ~ formattedJson", formattedJson)
+        }, console.error.bind(console));
+      });
+    }
+
+    //@ts-ignore
+    gapi.load('client', start);
+  }
 
 
 

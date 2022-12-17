@@ -17,4 +17,12 @@ export class AuthService {
         localStorage.setItem("token", credentials);
     }
 
+    estaLogado(): boolean {
+        return localStorage.getItem("token") != null;
+    }
+
+    obtemToken(): string {
+        return localStorage.getItem("token") || '';
+    }
+
 }
