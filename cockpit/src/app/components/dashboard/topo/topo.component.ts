@@ -9,6 +9,7 @@ import { Dashboard } from 'src/app/shared/models/dashboard';
 export class TopoComponent implements OnInit {
 
   @Output() periodoSelecionado = new EventEmitter<string>();
+  @Output() contaSelecionada = new EventEmitter<string>();
   @Output() clienteSelecionado = new EventEmitter<number>();
   @Input() dash: Dashboard = {
     clientesMes: 8797,
@@ -24,6 +25,9 @@ export class TopoComponent implements OnInit {
 
   informaPeriodo(value: any) {
     this.periodoSelecionado.emit(value);
+  }
+  informaConta(value: any) {
+    this.contaSelecionada.emit(value);
   }
   informaCliente(value: any) {
     this.clienteSelecionado.emit(+value);

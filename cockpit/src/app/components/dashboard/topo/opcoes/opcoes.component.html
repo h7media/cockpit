@@ -1,4 +1,13 @@
 <div fxLayout="column" fxLayoutAlign="stretch">
+    <mat-spinner *ngIf="lstContasLoading" color="#551fff" diameter="45" fxFlexAlign="center"></mat-spinner>
+    <mat-form-field *ngIf="!lstContasLoading" appearance="fill">
+        <mat-label>Selecione a conta</mat-label>
+        <mat-select (selectionChange)="selecionaConta($event.value)">
+            <mat-option *ngFor="let conta of lstContas" [value]="conta.name">
+                {{conta.displayName}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Selecione o canal</mat-label>
         <mat-select (selectionChange)="selecionaCliente($event.value)">

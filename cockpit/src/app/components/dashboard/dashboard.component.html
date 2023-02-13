@@ -4,7 +4,7 @@
     </div>
     <div fxFlex="80%">
         <div fxFill>
-            <app-topo (periodoSelecionado)="atribuiPeriodo($event)" (clienteSelecionado)="atribuiCliente($event)"
+            <app-topo (periodoSelecionado)="atribuiPeriodo($event)" (contaSelecionada)="atribuiConta($event)" (clienteSelecionado)="atribuiCliente($event)"
                 [dash]="dash"></app-topo>
             <div class="dash-corpo">
                 <span class="titulo">Somatória geral - Arcos Dourados</span>
@@ -20,6 +20,4 @@
         </div>
     </div>
 </div>
-<!-- <p class="g-signin2" data-onsuccess="queryReports"></p> -->
-<!-- <button (click)="getReport()">Consulta Analytics</button> -->
-<!-- <div id="buttonDiv"></div> -->
+<button (click)="obtemView()"> obtem view</button>

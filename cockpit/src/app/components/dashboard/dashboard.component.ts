@@ -1,9 +1,10 @@
-import { Component, NgZone, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, NgZone, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { BaseChartDirective } from 'ng2-charts';
 import { AuthService } from 'src/app/services/auth.service';
+import { GoogleApiService } from 'src/app/services/google-api.service';
 import { Dashboard } from 'src/app/shared/models/dashboard';
 import UnidadeNegocio from 'src/app/shared/models/unidade-negocio';
 // import {default as Annotation} from 'chartjs-plugin-annotation';
@@ -16,9 +17,10 @@ import { geradorUNGibim, geradorUNGreenRun, geradorUNVetFaro } from 'src/app/sha
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnChanges {
+export class DashboardComponent implements OnInit {
 
-  authButton: boolean = false;
+
+  auth2: any;
   unidadeNegocio: UnidadeNegocio[] = []
   periodoSelecionado: string = ''
   clienteSelecionado: number = 0
@@ -29,35 +31,30 @@ export class DashboardComponent implements OnInit, OnChanges {
     totalInvestido: 84732.99,
     totalVendido: 3482937.48
   }
+  contaSelecionada: string = ""
+  idPropriedadeGA4 = "346801222"
 
 
-  constructor(private _auth: AuthService, private _ngZone: NgZone, private router: Router) {
+  constructor(private _auth: AuthService,
+    private _ngZone: NgZone,
+    private router: Router,
+    private google: GoogleApiService) {
 
   }
 
   ngOnInit(): void {
-
-    this.obtemContas();
-    // //@ts-ignore
-    // window.onGoogleLibraryLoad = () => {
-    //   //@ts-ignore
-    //   google.accounts.id.initialize({
-    //     client_id: "74204654932-aad5irlv4mpdmg0251e1hnsrfrbes0tu.apps.googleusercontent.com",
-    //     callback: this.handleCredentialResponse.bind(this)
-    //   });
-    //   //@ts-ignore
-    //   google.accounts.id.renderButton(
-    //     // @ts-ignore
-    //     document.getElementById("buttonDiv"),
-    //     { theme: "outline", size: "large" }  // customization attributes
-    //   );
-    //   //@ts-ignore
-    //   google.accounts.id.prompt((notification: PromptMomentNotification) => { }); // also display the One Tap dialog
-    // }
+    this.google.obtemPropriedade(this.idPropriedadeGA4).subscribe(res => JSON.stringify(res))
   }
 
-  ngOnChanges(): void {
+  obtemView() {
+    this.google.getView().subscribe(res => {
+      console.log(`view resultado ${JSON.stringify(res)}`);
+    }, error => console.log("deu ruim " + error))
+  }
 
+  atribuiConta($event: any) {
+    this.contaSelecionada = $event
+    console.log("🚀 ~ file: dashboard.component.ts:55 ~ DashboardComponent ~ atribuiConta ~  this.contaSelecionada", this.contaSelecionada)
   }
 
   atribuiPeriodo($event: any) {
@@ -117,98 +114,6 @@ export class DashboardComponent implements OnInit, OnChanges {
     //     break;
     // }
   }
-
-  // handleCredentialResponse(response: CredentialResponse) {
-  //   console.log('entrou')
-  //   this._auth.LoginWithGoogle(response.credential);
-  //   this._ngZone.run(() => {
-  //     this.router.navigate(['/dash']);
-  //   })
-  // }
-
-  // getReport() {
-
-  //   console.log('chamou')
-  //   //@ts-ignore
-  //   gapi.client.request({
-  //     path: "/analytics/v3/data/ga?ids=ga%3A209071487&start-date=7daysAgo&end-date=yesterday&metrics=ga%3Ausers%2Cga%3Asessions&include-empty-rows=true&samplingLevel=DEFAULT",
-  //     root: 'https://www.googleapis.com/',
-  //     method: 'GET',
-  //     headers: {
-  //       authorization: 'Bearer ya29.a0AeTM1idGFH1yNzOekKqmiNICN2jlH-g7Z3SBqfia698Z6x8cvpaz7TtT6SiviB1wiNGQzimmfDf4BwXfyCSsHSEMP_pJ3P6V6Wt_v7Rv-wQF77lWl2o3mJhKQ3GWiVgrcCvtcLQLpdEdRWSI8BcnnqsLID2KaCgYKAToSARASFQHWtWOmGR2Cqfs1mlRb0JNFmcVksw0163'
-  //     }
-  //     //@ts-ignore
-  //   }).then((response: any) => {
-  //     var formattedJson = JSON.stringify(response.result, null, 2);
-  //     console.log("🚀 ~ file: dashboard.component.ts:81 ~ DashboardComponent ~ displayResults ~ formattedJson", formattedJson)
-  //   }, console.error.bind(console));
-
-  obtemContas() {
-
-    function start() {
-      //@ts-ignore
-      gapi.client.init({
-        'apiKey': '74204654932-aad5irlv4mpdmg0251e1hnsrfrbes0tu.apps.googleusercontent.com'
-      }).then(function () {
-        //@ts-ignore
-        return gapi.client.request({
-          path: '/analytics/v3/management/accountSummaries',
-          root: 'https://www.googleapis.com/',
-          method: 'GET'
-          //@ts-ignore
-        }).then((response: any) => {
-          var formattedJson = JSON.stringify(response.result, null, 2);
-          console.log("🚀 ~ file: dashboard.component.ts:81 ~ DashboardComponent ~ displayResults ~ formattedJson", formattedJson)
-        }, console.error.bind(console));
-      });
-    }
-
-    //@ts-ignore
-    gapi.load('client', start);
-  }
-
-
-
-  // }
-
-  // queryReports() {
-
-  //   console.log('chamou')
-  //   //@ts-ignore
-  //   gapi.client.request({
-  //     path: '/v4/reports:batchGet?key=74204654932-aad5irlv4mpdmg0251e1hnsrfrbes0tu.apps.googleusercontent.com',
-  //     root: 'https://analyticsreporting.googleapis.com/',
-  //     method: 'POST',
-  //     body: {
-  //       reportRequests: [
-  //         {
-  //           viewId: 209071487,
-  //           dateRanges: [
-  //             {
-  //               startDate: '7daysAgo',
-  //               endDate: 'today'
-  //             }
-  //           ],
-  //           metrics: [
-  //             {
-  //               expression: 'ga:sessions'
-  //             }
-  //           ]
-  //         }
-  //       ]
-  //     }
-  //     //@ts-ignore
-  //   }).then((response: any) => {
-  //     var formattedJson = JSON.stringify(response.result, null, 2);
-  //     console.log("🚀 ~ file: dashboard.component.ts:81 ~ DashboardComponent ~ displayResults ~ formattedJson", formattedJson)
-  //   }, console.error.bind(console));
-  // }
-
-  // displayResults(response: any) {
-  //   var formattedJson = JSON.stringify(response.result, null, 2);
-  //   console.log("🚀 ~ file: dashboard.component.ts:81 ~ DashboardComponent ~ displayResults ~ formattedJson", formattedJson)
-  // }
-
 
   public lineChartData = lineChartData([9500, 8500, 6500, 12000]);
 

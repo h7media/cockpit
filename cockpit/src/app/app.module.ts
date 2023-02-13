@@ -16,8 +16,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { OpcoesComponent } from './components/dashboard/topo/opcoes/opcoes.component';
 import { DetalhesComponent } from './components/dashboard/topo/detalhes/detalhes.component';
 import { AuthService } from './services/auth.service';
-import { LoginComponent } from './components/login/login.component';
-import { AuthGuardService } from './services/auth.guard';
+import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 
 @NgModule({
@@ -28,8 +28,7 @@ import { AuthGuardService } from './services/auth.guard';
     TopoComponent,
     ProdutoComponent,
     OpcoesComponent,
-    DetalhesComponent,
-    LoginComponent
+    DetalhesComponent
   ],
   imports: [
     BrowserModule,
@@ -38,10 +37,11 @@ import { AuthGuardService } from './services/auth.guard';
     AppMaterialModule,
     FontAwesomeModule,
     NgChartsModule,
+    HttpClientModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     AuthService,
-    AuthGuardService,
   ],
   bootstrap: [AppComponent]
 })
