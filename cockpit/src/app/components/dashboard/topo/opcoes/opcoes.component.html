@@ -8,14 +8,14 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <!-- <mat-form-field appearance="fill">
         <mat-label>Selecione o canal</mat-label>
         <mat-select (selectionChange)="selecionaCliente($event.value)">
             <mat-option *ngFor="let cliente of lstClientes" [value]="cliente.id">
                 {{cliente.nome}}
             </mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
     <mat-form-field appearance="fill">
         <mat-label>Escolha um periodo</mat-label>
         <mat-select (selectionChange)="selecionaPeriodo($event.value)">

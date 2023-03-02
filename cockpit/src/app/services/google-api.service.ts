@@ -67,22 +67,22 @@ export class GoogleApiService {
                 viewId: "209071487",
                 dateRanges: [
                   {
-                    startDate: '7daysAgo',
+                    startDate: `${propriedade || '7days'}Ago`,
                     endDate: 'today'
                   }
                 ],
                 metrics: [
                   {
-                    expression: 'ga:activeUsers'
+                    expression: 'ga:addToCarts'
                   },
                   {
-                    expression: 'ga:activeUsers'
+                    expression: 'ga:transactionsPerSession'
                   },
                   {
-                    expression: 'ga:activeUsers'
+                    expression: 'ga:costPerConversion'
                   },
                   {
-                    expression: 'ga:conversions'
+                    expression: 'ga:transactionsPerSession'
                   }
                 ]
               }

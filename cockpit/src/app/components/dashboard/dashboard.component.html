@@ -4,12 +4,12 @@
     </div>
     <div fxFlex="80%">
         <div fxFill>
-            <app-topo (periodoSelecionado)="atribuiPeriodo($event)" (contaSelecionada)="atribuiConta($event)" (clienteSelecionado)="atribuiCliente($event)"
-                [dash]="dash"></app-topo>
+            <app-topo (periodoSelecionado)="atribuiPeriodo($event)" (contaSelecionada)="atribuiConta($event)"
+                (clienteSelecionado)="atribuiCliente($event)" [dash]="dash"></app-topo>
             <div class="dash-corpo">
                 <span class="titulo">Somatória geral - Arcos Dourados</span>
-                <canvas baseChart height="110" [data]="dados" [options]="lineChartOptions" [type]="lineChartType"
-                    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                <canvas baseChart height="110" [data]="dados" [options]="lineChartOptions"
+                    [type]="lineChartType"></canvas>
             </div>
             <div fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="start center" style="margin-bottom: 60px;">
                 <div *ngFor="let un of unidadeNegocio; index as i;" fxFlex="48%">

@@ -6,6 +6,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { AuthService } from 'src/app/services/auth.service';
 import { GoogleApiService } from 'src/app/services/google-api.service';
 import { Dashboard } from 'src/app/shared/models/dashboard';
+import RetornoGa, { DataGA } from 'src/app/shared/models/retorno.ga';
 import UnidadeNegocio from 'src/app/shared/models/unidade-negocio';
 // import {default as Annotation} from 'chartjs-plugin-annotation';
 import { lineChartData, lineChartOptions, lineChartType } from 'src/app/shared/utils/fake-data-chart';
@@ -19,7 +20,7 @@ import { geradorUNGibim, geradorUNGreenRun, geradorUNVetFaro } from 'src/app/sha
 })
 export class DashboardComponent implements OnInit {
 
-
+  reports: RetornoGa = { reports: null }
   auth2: any;
   unidadeNegocio: UnidadeNegocio[] = []
   periodoSelecionado: string = ''
@@ -43,7 +44,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.google.obtemPropriedade(this.idPropriedadeGA4).subscribe(res => JSON.stringify(res))
+
   }
 
   obtemView() {
@@ -59,12 +60,17 @@ export class DashboardComponent implements OnInit {
 
   atribuiPeriodo($event: any) {
     this.periodoSelecionado = $event
-    this.geraDadosCliente(this.clienteSelecionado)
-    let somatoriaAlcance = this.unidadeNegocio.reduce((sum, current) => sum + current.alcance, 0);
-    let somatoriaEngajamento = this.unidadeNegocio.reduce((sum, current) => sum + current.engajamento, 0);
-    let somatoriaConversao = this.unidadeNegocio.reduce((sum, current) => sum + current.conversao, 0);
-    let somatoriaRetencao = this.unidadeNegocio.reduce((sum, current) => sum + current.retencao, 0);
-    this.dados = lineChartData([somatoriaAlcance, somatoriaEngajamento, somatoriaConversao, somatoriaRetencao])
+    console.log("🚀 ~ file: dashboard.component.ts:66 ~ DashboardComponent ~ this.periodoSelecionado:", this.periodoSelecionado)
+    this.google.obtemPropriedade(this.periodoSelecionado).subscribe(res => {
+      this.reports = res as RetornoGa
+      if (this.reports.reports != null)
+        this.dados = lineChartData([
+          this.reports.reports[0].data?.totals[0].values[0],
+          this.reports.reports[0].data?.totals[0].values[1],
+          this.reports.reports[0].data?.totals[0].values[2],
+          this.reports.reports[0].data?.totals[0].values[3]])
+    })
+
   }
   atribuiCliente($event: any) {
     this.clienteSelecionado = +$event
@@ -115,7 +121,7 @@ export class DashboardComponent implements OnInit {
     // }
   }
 
-  public lineChartData = lineChartData([9500, 8500, 6500, 12000]);
+  public lineChartData = lineChartData([0, 0, 0, 0]);
 
   public lineChartOptions = lineChartOptions;
 
@@ -123,56 +129,56 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  private static generateNumber(i: number): number {
-    return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
-  }
+  // private static generateNumber(i: number): number {
+  //   return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
+  // }
 
-  public randomize(): void {
-    for (let i = 0; i < this.lineChartData.datasets.length; i++) {
-      for (let j = 0; j < this.lineChartData.datasets[i].data.length; j++) {
-        this.lineChartData.datasets[i].data[j] = DashboardComponent.generateNumber(i);
-      }
-    }
-    this.chart?.update();
-  }
+  // public randomize(): void {
+  //   for (let i = 0; i < this.lineChartData.datasets.length; i++) {
+  //     for (let j = 0; j < this.lineChartData.datasets[i].data.length; j++) {
+  //       this.lineChartData.datasets[i].data[j] = DashboardComponent.generateNumber(i);
+  //     }
+  //   }
+  //   this.chart?.update();
+  // }
 
-  // events
-  public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    // console.log(event, active);
-  }
+  // // events
+  // public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
+  //   // console.log(event, active);
+  // }
 
-  public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    // console.log(event, active);
-  }
+  // public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
+  //   // console.log(event, active);
+  // }
 
-  public hideOne(): void {
-    const isHidden = this.chart?.isDatasetHidden(1);
-    this.chart?.hideDataset(1, !isHidden);
-  }
+  // public hideOne(): void {
+  //   const isHidden = this.chart?.isDatasetHidden(1);
+  //   this.chart?.hideDataset(1, !isHidden);
+  // }
 
-  public pushOne(): void {
-    this.lineChartData.datasets.forEach((x, i) => {
-      const num = DashboardComponent.generateNumber(i);
-      x.data.push(num);
-    });
-    this.lineChartData?.labels?.push(`Label ${this.lineChartData.labels.length}`);
+  // public pushOne(): void {
+  //   this.lineChartData.datasets.forEach((x, i) => {
+  //     const num = DashboardComponent.generateNumber(i);
+  //     x.data.push(num);
+  //   });
+  //   this.lineChartData?.labels?.push(`Label ${this.lineChartData.labels.length}`);
 
-    this.chart?.update();
-  }
+  //   this.chart?.update();
+  // }
 
-  public changeColor(): void {
-    this.lineChartData.datasets[2].borderColor = 'green';
-    this.lineChartData.datasets[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
+  // public changeColor(): void {
+  //   this.lineChartData.datasets[2].borderColor = 'green';
+  //   this.lineChartData.datasets[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
 
-    this.chart?.update();
-  }
+  //   this.chart?.update();
+  // }
 
-  public changeLabel(): void {
-    if (this.lineChartData.labels) {
-      this.lineChartData.labels[2] = ['1st Line', '2nd Line'];
-    }
+  // public changeLabel(): void {
+  //   if (this.lineChartData.labels) {
+  //     this.lineChartData.labels[2] = ['1st Line', '2nd Line'];
+  //   }
 
-    this.chart?.update();
-  }
+  //   this.chart?.update();
+  // }
 
 }
